@@ -46,10 +46,8 @@
         <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
     </feature>
     <feature name="Media">
-        <param name="ios-package" value="CDVSound" />
-    </feature>
-    <feature name="Media">
         <param name="android-package" value="org.apache.cordova.media.AudioHandler" />
+        <param name="ios-package" value="CDVSound" />
     </feature>
     <gap:plugin name="org.apache.cordova.battery-status" />
     <gap:plugin name="org.apache.cordova.camera" />
@@ -71,6 +69,14 @@
     <gap:plugin name="org.apache.cordova.vibration" />
 
     <plugin name="SplashScreen" value="”org.apache.cordova.SplashScreen"/>
+    <feature name="File">
+        <param name="android-package" value="org.apache.cordova.file.FileUtils" />
+        <param name="ios-package" value="CDVFile" />
+    </feature>
+    <feature name="FileTransfer">
+        <param name="android-package" value="org.apache.cordova.filetransfer.FileTransfer" />
+        <param name="ios-package" value="CDVFileTransfer" />
+    </feature>
 
     <icon src="icon.png" />
     <icon gap:platform="android" gap:qualifier="ldpi" src="www/res/icon/android/icon-36-ldpi.png" />
