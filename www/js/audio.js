@@ -86,10 +86,11 @@ function PlayAudioInicio() {
     try {
         document.getElementById('audio_position').innerHTML = "PlayAudioInicio";
 
-        var file = new Parse.File("sound.mp3", { base64: sFichero }); file.save().then(function() {
-            Object.set("soundy", file);
+        var file = new Parse.File("sound.mp3", { base64: sFichero });
+        file.save().then(function() {
+           alert("bien parse");;
         }, function(error) {
-            alert("an error");
+            alert("mal parse "+error.message);
             // The file either could not be read, or could not be saved to Parse.
         });
             mi_mediaAudioReproducir = new Media("sound.mp3", onSuccessAudio, onErrorAudio);
