@@ -4,6 +4,8 @@ var src = "myrecording.mp3";
 
 function recordAudioInicio() {
     try{
+        document.getElementById('audio_position').innerHTML = "recordAudioInicio";
+
         mi_mediaAudioGrabar = new Media(src,onSuccessAudio,onErrorAudio);
 
         // Record audio
@@ -11,12 +13,12 @@ function recordAudioInicio() {
     }
     catch (ex){
         alert("recordAudioInicio "+ ex.message)
-
     }
 }
 
 function recordAudioFin() {
     try{
+        document.getElementById('audio_position').innerHTML = "recordAudioFin";
         mi_mediaAudioGrabar.stopRecord();
     }
     catch (ex){
@@ -81,10 +83,11 @@ function PlayAudioInicio() {
     //window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, onError);
     //fileSystem.root.getFile(myFileName, {create: true, exclusive: false}, gotFileEntry(), onError);
     try {
+        document.getElementById('audio_position').innerHTML = "PlayAudioInicio";
 
         if (mi_mediaAudioReproducir == null) {
             // Create Media object from src
-            mi_mediaAudioReproducir = new Media(src, onSuccess, onError);
+            mi_mediaAudioReproducir = new Media(src, onSuccessAudio, onErrorAudio);
         } // else play current audio
         // Play audio
         mi_mediaAudioReproducir.play();
@@ -96,6 +99,7 @@ function PlayAudioInicio() {
 
 function PlayAudioFin() {
     try{
+        document.getElementById('audio_position').innerHTML = "PlayAudioFin";
         mi_mediaAudioReproducir.stop();
     }
     catch (ex){
