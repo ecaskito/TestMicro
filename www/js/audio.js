@@ -123,7 +123,7 @@ function setAudioPosition(position) {
 
 
 function ConvertirFicheroAudioToBase64(fileSystem) {
-    fileSystem.root.getFile(miGlobal_mediaAudiosrc, null, LeerFicheroAudio, fail);
+    fileSystem.root.getFile(miGlobal_mediaAudiosrc, null, LeerFicheroAudio, LeerFicheroAudioError);
 }
 function LeerFicheroAudio(fileEntry) {
     fileEntry.file(LeerFicheroAudioOK, LeerFicheroAudioError);
@@ -133,7 +133,7 @@ function LeerFicheroAudioOK(file){
     TransformarFicheroAudioToBase64(file);
 }
 function LeerFicheroAudioError(error) {
-    miGlobal_inciAudio='';
+    sFichero='';
     mensaje(error.message,"error");
 }
 // turn the file into a base64 encoded string, and update the var base to this value.
