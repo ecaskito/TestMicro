@@ -86,10 +86,10 @@ function PlayAudioInicio() {
     try {
         document.getElementById('audio_position').innerHTML = "PlayAudioInicio";
 
-        if (mi_mediaAudioReproducir == null) {
             // Create Media object from src
-            mi_mediaAudioReproducir = new Media("data:audio/mpeg;base64," + sFichero, onSuccessAudio, onErrorAudio);
-        } // else play current audio
+            var v_src="data:audio/mpeg;base64," + sFichero;
+            mi_mediaAudioReproducir = new Media(v_src, onSuccessAudio, onErrorAudio);
+
         // Play audio
         mi_mediaAudioReproducir.play();
     }
@@ -123,7 +123,7 @@ function setAudioPosition(position) {
 
 
 function ConvertirFicheroAudioToBase64(fileSystem) {
-    fileSystem.root.getFile(miGlobal_mediaAudiosrc, null, LeerFicheroAudio, LeerFicheroAudioError);
+    fileSystem.root.getFile(src, null, LeerFicheroAudio, LeerFicheroAudioError);
 }
 function LeerFicheroAudio(fileEntry) {
     fileEntry.file(LeerFicheroAudioOK, LeerFicheroAudioError);
@@ -134,7 +134,7 @@ function LeerFicheroAudioOK(file){
 }
 function LeerFicheroAudioError(error) {
     sFichero='';
-    mensaje(error.message,"error");
+    alert(error.message,"error");
 }
 // turn the file into a base64 encoded string, and update the var base to this value.
 function TransformarFicheroAudioToBase64(file) {
