@@ -1,7 +1,7 @@
 var mi_mediaAudioGrabar;
 var mi_mediaAudioReproducir;
 var src = "myrecording.mp3";
-
+var sFichero;
 function recordAudioInicio() {
     try{
         document.getElementById('audio_position').innerHTML = "recordAudioInicio";
@@ -20,6 +20,7 @@ function recordAudioFin() {
     try{
         document.getElementById('audio_position').innerHTML = "recordAudioFin";
         mi_mediaAudioGrabar.stopRecord();
+        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, ConvertirFicheroAudioToBase64, fail);
     }
     catch (ex){
         alert("recordAudioFin "+ ex.message)
@@ -87,7 +88,7 @@ function PlayAudioInicio() {
 
         if (mi_mediaAudioReproducir == null) {
             // Create Media object from src
-            mi_mediaAudioReproducir = new Media(src, onSuccessAudio, onErrorAudio);
+            mi_mediaAudioReproducir = new Media("data:audio/mpeg;base64," + sFichero, onSuccessAudio, onErrorAudio);
         } // else play current audio
         // Play audio
         mi_mediaAudioReproducir.play();
@@ -118,4 +119,29 @@ function onErrorAudio(error) {
 //
 function setAudioPosition(position) {
 //    document.getElementById('audio_position').innerHTML = position;
+}
+
+
+function ConvertirFicheroAudioToBase64(fileSystem) {
+    fileSystem.root.getFile(miGlobal_mediaAudiosrc, null, LeerFicheroAudio, fail);
+}
+function LeerFicheroAudio(fileEntry) {
+    fileEntry.file(LeerFicheroAudioOK, LeerFicheroAudioError);
+}
+// the file is successfully retreived
+function LeerFicheroAudioOK(file){
+    TransformarFicheroAudioToBase64(file);
+}
+function LeerFicheroAudioError(error) {
+    miGlobal_inciAudio='';
+    mensaje(error.message,"error");
+}
+// turn the file into a base64 encoded string, and update the var base to this value.
+function TransformarFicheroAudioToBase64(file) {
+    var reader = new FileReader();
+    reader.onloadend = function(evt) {
+        alert(evt.target.result);
+        sFichero = evt.target.result;
+    };
+    reader.readAsDataURL(file);
 }
