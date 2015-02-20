@@ -1,6 +1,6 @@
 var mi_mediaAudioGrabar;
 var mi_mediaAudioReproducir;
-var src = "myrecording.mp3";
+var src = "myrecording.mpeg";
 var sFichero;
 function recordAudioInicio() {
     try{
@@ -86,14 +86,19 @@ function PlayAudioInicio() {
     try {
         document.getElementById('audio_position').innerHTML = "PlayAudioInicio";
 
-        var file = new Parse.File("sound.mp3", { base64: sFichero });
-        file.save().then(function() {
-           alert("bien parse");;
-        }, function(error) {
-            alert("mal parse "+error.message);
-            // The file either could not be read, or could not be saved to Parse.
-        });
-            mi_mediaAudioReproducir = new Media("sound.mp3", onSuccessAudio, onErrorAudio);
+        //var file = new Parse.File("sound.mp3", { base64: sFichero });
+        //file.save().then(function() {
+        //   alert("bien parse");;
+        //}, function(error) {
+        //    alert("mal parse "+error.message);
+        //    // The file either could not be read, or could not be saved to Parse.
+        //});
+
+        var sFich="data:audio/mpeg;base64," + sFichero;
+        //var writer = new FileWriter();
+        //writer.write(sFich);
+
+        mi_mediaAudioReproducir = new Media(sFichero, onSuccessAudio, onErrorAudio);
 
         // Play audio
         mi_mediaAudioReproducir.play();
@@ -145,8 +150,12 @@ function LeerFicheroAudioError(error) {
 function TransformarFicheroAudioToBase64(file) {
     var reader = new FileReader();
     reader.onloadend = function(evt) {
-        alert(evt.target.result);
+        //alert(evt.target.result);
         sFichero = evt.target.result;
+        sFichero  =   sFichero.toString().substring(sFichero.toString().indexOf(",")+1);
     };
     reader.readAsDataURL(file);
 }
+
+
+
