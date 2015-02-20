@@ -86,19 +86,19 @@ function PlayAudioInicio() {
     try {
         document.getElementById('audio_position').innerHTML = "PlayAudioInicio";
 
-        //var file = new Parse.File("sound.mp3", { base64: sFichero });
-        //file.save().then(function() {
-        //   alert("bien parse");;
-        //}, function(error) {
-        //    alert("mal parse "+error.message);
-        //    // The file either could not be read, or could not be saved to Parse.
-        //});
+        var file = new Parse.File("sound.mp3", { base64: sFichero });
+        file.save().then(function() {
+           alert("bien parse");
+        }, function(error) {
+            alert("mal parse "+error.message);
+            // The file either could not be read, or could not be saved to Parse.
+        });
 
-        var sFich="data:audio/mpeg;base64," + sFichero;
+        //var sFich="data:audio/mpeg;base64," + sFichero;
         //var writer = new FileWriter();
         //writer.write(sFich);
 
-        mi_mediaAudioReproducir = new Media(sFichero, onSuccessAudio, onErrorAudio);
+        mi_mediaAudioReproducir = new Media("sound.mp3", onSuccessAudio, onErrorAudio);
 
         // Play audio
         mi_mediaAudioReproducir.play();
